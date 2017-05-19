@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASPNetMVCTesting.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,11 @@ namespace ASPNetMVCTesting
     {
         public Startup(IHostingEnvironment env)
         {
+            using (Database db = new Database())
+            {
+                db.Database.EnsureCreated();
+            }
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
