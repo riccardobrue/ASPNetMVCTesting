@@ -1,12 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ASPNetMVCTesting.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPNetMVCTesting.Services
 {
-    public class Database : DbContext
+    public class Database : DbContext, ICoursesService
     {
         public DbSet<Course> Courses { get; private set; }
         public DbSet<Exam> Exams { get; private set; }
+
+        public async Task CreateNewCourse(Course course)
+        {
+            Courses.Add(course);
+            await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Course>> List()
+        {
+            return await Courses.Include(course => course.Exams).ToListAsync();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder OptBuilder)
         {

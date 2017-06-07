@@ -1,0 +1,10 @@
+@using ASPNetMVCTesting.Models.Requests
+@model CourseCreationData
+<form method="POST">
+    <label>Course name</label>
+        <input type="text" asp-for="CourseName"/>
+    <label>Professor name</label>
+        <input type="text" asp-for="ProfessorName"/>
+    <input type="submit" value="Submit"/>
+</form>
+<div asp-validation-summary="All"></div>
