@@ -58,6 +58,7 @@ namespace ASPNetMVCTesting
             services.AddMvc();
             services.AddScoped(typeof(Database));
             services.AddScoped(typeof(ICoursesService), typeof(Database));
+            services.AddScoped(typeof(IExamsService), typeof(Database));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

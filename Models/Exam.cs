@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ASPNetMVCTesting.Models
 {
@@ -15,5 +16,14 @@ namespace ASPNetMVCTesting.Models
             this.ExamDate = ExamDate;
         }
         */
+        private List<Registration> ListOfRegistrations;
+        public IEnumerable<Registration> AllRegistrations
+        {
+            get
+            {
+                return ListOfRegistrations;
+            }
+        }
+
     }
 }

@@ -11,7 +11,7 @@
         <ul>
             @foreach(Exam exam in course.Exams){
                 <li>
-                    <span style="color: blue">@exam.ExamDate</span>
+                    <a href="/Home/Register/@exam.ID">@exam.ExamDate</a>
                 </li>
             }
         </ul>

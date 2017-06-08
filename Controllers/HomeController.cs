@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ASPNetMVCTesting.Models;
 using ASPNetMVCTesting.Models.Requests;
 using ASPNetMVCTesting.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +15,14 @@ namespace ASPNetMVCTesting.Controllers
     {
 
         private readonly ICoursesService coursesService;
-        public HomeController(ICoursesService coursesService)
+        private readonly IExamsService examsService;
+        public HomeController(
+            ICoursesService coursesService,
+            IExamsService examsService
+            )
         {
             this.coursesService = coursesService;
+            this.examsService = examsService;
         }
         public async Task<IActionResult> Index()
         {
@@ -53,6 +59,7 @@ namespace ASPNetMVCTesting.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Professor")]
         public async Task<IActionResult> New(CourseCreationData data)
         {
             if (ModelState.IsValid)
@@ -65,6 +72,13 @@ namespace ASPNetMVCTesting.Controllers
             {
                 return View(data);
             }
+        }
+
+
+        public async Task<IActionResult> Register(int id)
+        {
+            Exam exam = await examsService.GetExamFromID(id);
+            return View(exam);
         }
     }
 }
